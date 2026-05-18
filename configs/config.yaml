@@ -1,0 +1,32 @@
+data:
+  clubs:
+    - "Real Madrid CF"
+    - "FC Barcelona"
+    - "Manchester United F.C."
+    - "Liverpool F.C."
+    - "Arsenal F.C."
+  wiki_language: "en"
+
+chunking:
+  max_tokens: 1000          # split a section only if it exceeds this
+  overlap_tokens: 150       # repeated tokens between split sub-chunks
+  min_chunk_tokens: 50      # drop chunks smaller than this (noise)
+
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  dim: 384
+
+vectorstore:
+  path: "data/chroma"
+  collection: "football"
+
+retrieval:
+  top_k: 20                 # vector search recall stage
+  rerank_to: 5              # precision stage after re-ranking
+  similarity_threshold: 0.30  # gate: below this, refuse to answer
+  reranker_model: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
+generation:
+  model: "claude-haiku-4-5"
+  max_tokens: 1024
+  temperature: 0.0
